@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   MessageSquare,
   Search,
@@ -125,7 +126,11 @@ const ReviewsList = () => {
       <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
         <div>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Feedback & Testimonials</h2>
-          <p className="text-slate-500 dark:text-slate-400">Manage student voices and public testimonials for Académie Lamusique.</p>
+          <nav className="flex items-center gap-2 text-sm opacity-60 mt-1 dark:text-slate-400">
+            <Link to="/"><span>Dashboard</span></Link>
+            <ChevronRight size={14} />
+            <span className="text-primary font-medium">Reviews</span>
+          </nav>
         </div>
         <div className="flex items-center gap-3">
           <button className="px-5 py-2.5 rounded-lg border border-primary/20 bg-white dark:bg-slate-800 text-primary font-semibold text-sm hover:bg-primary/5 transition-all flex items-center gap-2">

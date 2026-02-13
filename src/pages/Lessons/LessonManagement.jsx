@@ -7,8 +7,21 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import DatePicker from '../../components/ui/DatePicker';
 
 const LessonManagement = () => {
+    const [currentDate, setCurrentDate] = React.useState(new Date());
+    const [isCalendarOpen, setIsCalendarOpen] = React.useState(false);
+
+    // Close calendar when clicking outside
+    React.useEffect(() => {
+        const handleClickOutside = () => setIsCalendarOpen(false);
+        if (isCalendarOpen) {
+            window.addEventListener('click', handleClickOutside);
+        }
+        return () => window.removeEventListener('click', handleClickOutside);
+    }, [isCalendarOpen]);
+
     return (
         <div className="flex-1 flex overflow-hidden bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100">
             {/* Main Content Area */}
@@ -17,6 +30,11 @@ const LessonManagement = () => {
                 <header className="h-24 px-8 flex items-center justify-between bg-transparent dark:bg-zinc-900/50 backdrop-blur-md sticky top-0 z-20">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Lesson Management</h1>
+                        <nav className="flex items-center gap-2 text-sm opacity-60 mt-1 dark:text-slate-400">
+                            <Link to="/"><span>Dashboard</span></Link>
+                            <ChevronRight size={14} />
+                            <span className="text-primary font-medium">Lesson Management</span>
+                        </nav>
                     </div>
                     <div className="flex items-center gap-6">
                         {/* Search Bar */}
@@ -25,17 +43,30 @@ const LessonManagement = () => {
                             <input className="w-80 pl-12 pr-4 py-2.5 bg-white dark:bg-zinc-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all shadow-sm outline-none" placeholder="Search students, teachers..." type="text" />
                         </div>*/}
                         {/* Date Navigation */}
-                        <div className="flex items-center bg-white dark:bg-zinc-800 rounded-xl p-1 shadow-sm">
-                            <button className="p-1.5 hover:bg-primary/5 rounded-lg text-slate-400 transition-colors">
-                                <ChevronLeft size={18} />
-                            </button>
-                            <div className="px-4 flex items-center gap-2">
+                        <div className="flex items-center bg-white dark:bg-zinc-800 rounded-xl px-4 py-2 shadow-sm gap-3 relative">
+                            <div
+                                className="relative cursor-pointer hover:opacity-80 transition-opacity"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsCalendarOpen(!isCalendarOpen);
+                                }}
+                            >
                                 <Calendar className="text-primary" size={18} />
-                                <span className="text-sm font-semibold whitespace-nowrap">Monday, Oct 23</span>
                             </div>
-                            <button className="p-1.5 hover:bg-primary/5 rounded-lg text-slate-400 transition-colors">
-                                <ChevronRight size={18} />
-                            </button>
+                            <span className="text-sm font-semibold whitespace-nowrap">
+                                {currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
+                            </span>
+
+                            {isCalendarOpen && (
+                                <DatePicker
+                                    selectedDate={currentDate}
+                                    onChange={(date) => {
+                                        setCurrentDate(date);
+                                        setIsCalendarOpen(false);
+                                    }}
+                                    onClose={() => setIsCalendarOpen(false)}
+                                />
+                            )}
                         </div>
                         <button className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all shadow-lg shadow-primary/20">
                             <Plus size={18} />
@@ -55,7 +86,7 @@ const LessonManagement = () => {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {/* Lesson Card 1: Completed */}
-                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 relative overflow-hidden">
+                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 relative overflow-hidden card-glow">
                                     <div className="absolute top-0 right-0 p-3">
                                         <CheckCircle className="text-emerald-500" size={20} />
                                     </div>
@@ -85,7 +116,7 @@ const LessonManagement = () => {
                                     </div>
                                 </div>
                                 {/* Lesson Card 2: In Progress */}
-                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border-l-4 border-l-primary border-slate-100 dark:border-zinc-800 p-6 shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border-l-4 border-l-primary border-slate-100 dark:border-zinc-800 p-6 shadow-md hover:shadow-xl transition-all duration-300 relative overflow-hidden card-glow">
                                     <div className="absolute top-4 right-4 animate-pulse flex items-center gap-1.5 bg-primary/10 text-primary px-2 py-1 rounded-md">
                                         <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>
                                         <span className="text-[10px] font-bold uppercase tracking-widest">Active</span>
@@ -114,7 +145,7 @@ const LessonManagement = () => {
                                     </div>
                                 </div>
                                 {/* Lesson Card 3: Upcoming */}
-                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300">
+                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 card-glow">
                                     <div className="flex flex-col gap-4">
                                         <div className="flex flex-col">
                                             <span className="text-xs font-bold text-primary uppercase tracking-widest mb-1">11:00 — 12:00</span>
@@ -149,7 +180,7 @@ const LessonManagement = () => {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {/* Lesson Card 4 */}
-                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300">
+                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 card-glow">
                                     <div className="flex flex-col gap-4">
                                         <div className="flex flex-col">
                                             <span className="text-xs font-bold text-primary uppercase tracking-widest mb-1">14:00 — 15:00</span>
@@ -174,7 +205,7 @@ const LessonManagement = () => {
                                     </div>
                                 </div>
                                 {/* Lesson Card 5 */}
-                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300">
+                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 card-glow">
                                     <div className="flex flex-col gap-4">
                                         <div className="flex flex-col">
                                             <span className="text-xs font-bold text-primary uppercase tracking-widest mb-1">15:30 — 16:30</span>
@@ -199,7 +230,7 @@ const LessonManagement = () => {
                                     </div>
                                 </div>
                                 {/* Lesson Card 6 */}
-                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300">
+                                <div className="group bg-white dark:bg-zinc-900 rounded-2xl border border-slate-100 dark:border-zinc-800 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 card-glow">
                                     <div className="flex flex-col gap-4">
                                         <div className="flex flex-col">
                                             <span className="text-xs font-bold text-primary uppercase tracking-widest mb-1">17:00 — 18:00</span>

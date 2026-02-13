@@ -73,7 +73,7 @@ const Dashboard2 = () => {
                 initial="hidden"
                 animate="visible"
             >
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 flex relative overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
+                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 flex relative overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 card-glow">
                     <div className="relative z-10 flex flex-col justify-between w-full lg:w-3/5">
                         <div>
                             <span className="inline-block px-3 py-1.5 bg-[#FFF0EB] text-[#FF5722] text-[10px] font-bold uppercase tracking-wider rounded-full mb-6">SYSTEM OVERVIEW</span>
@@ -145,7 +145,7 @@ const Dashboard2 = () => {
                     </motion.div>
                 </div>
 
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800">
+                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-8 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 card-glow">
                     <div className="flex items-center justify-between mb-8">
                         <div>
                             <h3 className="text-lg font-bold">Growth & Revenue</h3>
@@ -176,7 +176,7 @@ const Dashboard2 = () => {
                     </div>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-4 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800">
+                <motion.div variants={itemVariants} className="col-span-12 lg:col-span-4 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 card-glow">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="text-lg font-bold">Popular Instruments</h3>
                         <button className="text-slate-400 hover:text-slate-600"><MoreHorizontal size={20} /></button>
@@ -213,7 +213,7 @@ const Dashboard2 = () => {
                     </div>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="col-span-12 bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+                <motion.div variants={itemVariants} className="col-span-12 bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 card-glow">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-xl font-extrabold">Recent Registrations</h3>
                         <button className="text-primary font-bold text-sm hover:underline flex items-center space-x-1">

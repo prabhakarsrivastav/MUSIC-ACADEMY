@@ -15,7 +15,8 @@ import {
     Mic2,
     Guitar,
     BookOpen,
-    Users
+    Users,
+    ChevronRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -51,7 +52,11 @@ const ResourcesList = () => {
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div>
                     <h2 className="text-3xl font-bold mb-1">Resource Management</h2>
-                    <p className="text-slate-500 dark:text-slate-400">Control your academy's assets and educational catalog</p>
+                    <nav className="flex items-center gap-2 text-sm opacity-60 mt-1 dark:text-slate-400">
+                        <span>Dashboard</span>
+                        <ChevronRight size={14} />
+                        <span className="text-primary font-medium">Inventory</span>
+                    </nav>
                 </div>
                 <div className="flex items-center gap-3">
                     <button className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-white/10 transition-colors shadow-sm">

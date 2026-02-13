@@ -48,7 +48,7 @@ const FinanceDashboard = () => {
           {/* Stats Section */}
           <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Total Revenue */}
-            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-brand-peach rounded-3xl group cursor-pointer">
+            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-brand-peach rounded-3xl group cursor-pointer card-glow">
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-2 bg-white rounded-lg shadow-sm group-hover:scale-110 transition-transform">
@@ -67,7 +67,7 @@ const FinanceDashboard = () => {
             </div>
 
             {/* Pending Payments */}
-            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-white dark:bg-background-dark/50 rounded-3xl group cursor-pointer">
+            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-white dark:bg-background-dark/50 rounded-3xl group cursor-pointer card-glow">
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg group-hover:scale-110 transition-transform">
@@ -85,7 +85,7 @@ const FinanceDashboard = () => {
             </div>
 
             {/* Total Refunds */}
-            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-white dark:bg-background-dark/50 rounded-3xl group cursor-pointer">
+            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/20 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-white dark:bg-background-dark/50 rounded-3xl group cursor-pointer card-glow">
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-2 bg-red-50 dark:bg-red-900/20 rounded-lg group-hover:scale-110 transition-transform">
@@ -103,7 +103,7 @@ const FinanceDashboard = () => {
             </div>
 
             {/* Teacher Payouts */}
-            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-brand-peach rounded-3xl group cursor-pointer">
+            <div className="gloss-card p-6 shadow-gloss border-2 border-primary/20 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] flex flex-col justify-between bg-brand-peach rounded-3xl group cursor-pointer card-glow">
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-2 bg-white rounded-lg shadow-sm group-hover:scale-110 transition-transform">
@@ -122,14 +122,14 @@ const FinanceDashboard = () => {
           </section>
 
           {/* Trend Graph */}
-          <section className="gloss-card p-6 shadow-premium border-2 border-primary/20 bg-gradient-to-br from-white via-white to-primary/[0.02] dark:from-background-dark dark:via-background-dark dark:to-primary/[0.05] rounded-3xl hover:shadow-xl transition-shadow duration-300">
+          <section className="gloss-card p-6 shadow-premium border-2 border-primary/20 bg-gradient-to-br from-white via-white to-primary/[0.02] dark:from-background-dark dark:via-background-dark dark:to-primary/[0.05] rounded-3xl hover:shadow-xl transition-shadow duration-300 card-glow">
             <RevenueTrendChart />
           </section>
 
           <div className="bg-primary/[0.03] p-6 -mx-6 rounded-[2rem]">
             <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Transaction History */}
-              <div className="lg:col-span-8 gloss-card shadow-gloss overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300">
+              <div className="lg:col-span-8 gloss-card shadow-gloss overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 card-glow">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
                   <div className="flex items-center gap-6">
                     <h2 className="font-bold text-lg">Transaction History</h2>
@@ -210,7 +210,7 @@ const FinanceDashboard = () => {
               </div>
 
               {/* Transaction Volume */}
-              <div className="lg:col-span-4 gloss-card p-6 shadow-gloss border border-gray-100 dark:border-gray-800 flex flex-col justify-between bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300">
+              <div className="lg:col-span-4 gloss-card p-6 shadow-gloss border border-gray-100 dark:border-gray-800 flex flex-col justify-between bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 card-glow">
                 <div>
                   <h2 className="font-bold text-lg mb-1">Transaction Volume</h2>
                   <p className="text-xs text-gray-500 mb-6">Daily activity (last 14 days)</p>
@@ -240,7 +240,7 @@ const FinanceDashboard = () => {
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
               {/* Subscription Distribution */}
               <div
-                className="gloss-card p-6 shadow-gloss border border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                className="gloss-card p-6 shadow-gloss border border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 cursor-pointer group card-glow"
                 onMouseEnter={refreshPieChart}
                 title="Click to replay animation"
               >
@@ -307,7 +307,7 @@ const FinanceDashboard = () => {
 
               {/* Payment Success Rate */}
               <div
-                className="gloss-card p-6 shadow-gloss border border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                className="gloss-card p-6 shadow-gloss border border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 cursor-pointer group card-glow"
                 onMouseEnter={refreshGaugeChart}
                 title="Click to replay animation"
               >
@@ -369,7 +369,7 @@ const FinanceDashboard = () => {
 
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12">
             {/* Teacher Payouts */}
-            <div className="lg:col-span-12 gloss-card p-6 shadow-premium border border-primary/10 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300">
+            <div className="lg:col-span-12 gloss-card p-6 shadow-premium border border-primary/10 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 card-glow">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="font-bold text-lg">Teacher Payouts</h2>
                 <span className="text-xs text-gray-400">Monthly Cycle: Oct 2023</span>
@@ -409,7 +409,7 @@ const FinanceDashboard = () => {
             </div>
 
             {/* Coupon Codes */}
-            <div className="lg:col-span-5 gloss-card p-6 shadow-premium border border-primary/10 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300">
+            <div className="lg:col-span-5 gloss-card p-6 shadow-premium border border-primary/10 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 card-glow">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="font-bold text-lg">Coupon Codes</h2>
                 <button className="bg-primary/10 text-primary p-2 rounded-lg hover:bg-primary/20 transition-all">
@@ -442,7 +442,7 @@ const FinanceDashboard = () => {
 
             {/* Financial Reports */}
             <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2 gloss-card p-6 shadow-premium border border-primary/10 flex items-center justify-between bg-gradient-to-br from-white to-brand-peach dark:from-background-dark dark:to-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300">
+              <div className="md:col-span-2 gloss-card p-6 shadow-premium border border-primary/10 flex items-center justify-between bg-gradient-to-br from-white to-brand-peach dark:from-background-dark dark:to-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 card-glow">
                 <div>
                   <h3 className="font-bold text-lg">Financial Reports</h3>
                   <p className="text-sm text-gray-500">Comprehensive data exports and insights</p>
@@ -451,14 +451,14 @@ const FinanceDashboard = () => {
                   <Download size={18} /> Export CSV
                 </button>
               </div>
-              <div className="gloss-card p-5 shadow-premium border border-primary/5 hover:-translate-y-1 hover:shadow-xl transition-transform cursor-pointer bg-white dark:bg-background-dark/50 rounded-3xl">
+              <div className="gloss-card p-5 shadow-premium border border-primary/5 hover:-translate-y-1 hover:shadow-xl transition-transform cursor-pointer bg-white dark:bg-background-dark/50 rounded-3xl card-glow">
                 <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg flex items-center justify-center text-indigo-600 mb-4">
                   <Receipt size={24} />
                 </div>
                 <h4 className="font-bold">Tax Breakdown</h4>
                 <p className="text-xs text-gray-500 mt-1">Detailed VAT & service tax reporting for Q3.</p>
               </div>
-              <div className="gloss-card p-5 shadow-premium border border-primary/5 hover:-translate-y-1 hover:shadow-xl transition-transform cursor-pointer bg-white dark:bg-background-dark/50 rounded-3xl">
+              <div className="gloss-card p-5 shadow-premium border border-primary/5 hover:-translate-y-1 hover:shadow-xl transition-transform cursor-pointer bg-white dark:bg-background-dark/50 rounded-3xl card-glow">
                 <div className="w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center text-blue-600 mb-4">
                   <FileBarChart size={24} />
                 </div>
@@ -466,7 +466,7 @@ const FinanceDashboard = () => {
                 <p className="text-xs text-gray-500 mt-1">Monthly recurring revenue (MRR) tracking.</p>
               </div>
               {/* Invoice Archives */}
-              <div className="md:col-span-2 gloss-card p-6 shadow-premium border border-primary/5 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300">
+              <div className="md:col-span-2 gloss-card p-6 shadow-premium border border-primary/5 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 card-glow">
                 <div className="flex justify-between items-center mb-4">
                   <h4 className="font-bold text-lg">Invoice Archives</h4>
                   <button onClick={() => setShowInvoiceModal(true)} className="text-xs font-bold text-primary hover:underline">View All</button>

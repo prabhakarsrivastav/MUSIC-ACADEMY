@@ -65,4 +65,14 @@
         background: #e2e2e2;
         border-radius: 10px;
     }
+
+    .card-glow {
+        @apply transition-all duration-300;
+    }
+
+    .dark .card-glow:hover {
+        box-shadow: 0 0 20px -5px rgba(255, 87, 36, 0.3);
+        /* Primary Orange Glow */
+        border-color: rgba(255, 87, 36, 0.3);
+    }
 }

@@ -14,7 +14,6 @@ export default {
                 "sidebar-dark": "#1E293B",
                 "accent-cream": "#FFF5EB",
                 "charcoal": "#2B2B2B",
-                "white": "#FAFAFA",
                 "secondary": "#9d71fd",
                 "brand-peach": "#FFF5EB",
             },

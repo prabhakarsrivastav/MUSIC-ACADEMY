@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Music, Grid, GraduationCap, Users, Calendar, CreditCard, Piano, Settings, HelpCircle,
     Server, Search, Bell, MessageSquare, UserPlus, FileCheck, CheckCircle, Mail, DollarSign,
     Clock, Radio, Megaphone, PlusSquare, ArrowUpRight, BookOpen, Layers, MessageCircle,
-    ChevronLeft, ChevronRight, LayoutDashboard, Home, LineChart
+    ChevronLeft, ChevronRight, LayoutDashboard, Home, LineChart, PieChart,
+    Globe, Palette, Share2, Database, Lock, User
 } from 'lucide-react';
 
-const Sidebar = () => {
+
+
+const Sidebar = ({ isExpanded, setIsExpanded }) => {
+    const location = useLocation();
     const [activeCategory, setActiveCategory] = useState('dashboard'); // Default to dashboard
-    const [isExpanded, setIsExpanded] = useState(true);
 
     const handleCategoryClick = (id) => {
         if (activeCategory === id) {
@@ -46,8 +49,9 @@ const Sidebar = () => {
         ],
         // ... other subMenus ...
         booking: [
-            { to: '/bookings', label: 'All Bookings', icon: Calendar },
-            { to: '/schedule', label: 'Schedule', icon: Clock },
+            { to: '/bookings/list', label: 'Booking List', icon: Calendar },
+            { to: '/bookings/analytics', label: 'Analytics', icon: PieChart },
+            { to: '/bookings/schedule', label: 'Schedule', icon: Clock },
         ],
         live: [
             { to: '/live-classes', label: 'Active Classes', icon: Radio },
@@ -58,12 +62,21 @@ const Sidebar = () => {
             { to: '/invoices', label: 'Invoices', icon: FileCheck },
         ],
         reviews: [
-            { to: '/chat', label: 'Chats', icon: MessageCircle },
+            { to: '/reviews', label: 'All Reviews', icon: MessageCircle },
+            { to: '/chat', label: 'Chats', icon: MessageSquare },
         ],
         settings: [
-            { to: '/settings', label: 'General Settings', icon: Settings },
+            { to: '/settings?tab=general', label: 'General', icon: Globe },
+            { to: '/settings?tab=booking', label: 'Booking Rules', icon: Clock },
+            { to: '/settings?tab=payment', label: 'Payments', icon: CreditCard },
+            { to: '/settings?tab=email', label: 'Email & SMTP', icon: Mail },
+            { to: '/settings?tab=users', label: 'Users & Roles', icon: User },
+            { to: '/settings?tab=appearance', label: 'Appearance', icon: Palette },
+            { to: '/settings?tab=integrations', label: 'Integrations', icon: Share2 },
+            { to: '/settings?tab=backup', label: 'Backup & Data', icon: Database },
+            { to: '/settings?tab=legal', label: 'Legal Policies', icon: Lock },
             { to: '/documentation', label: 'Documentation', icon: HelpCircle },
-        ]
+        ],
     };
 
     const sidebarVariants = {
@@ -122,20 +135,26 @@ const Sidebar = () => {
                         </div>
 
                         <div className="flex-1 p-4 space-y-2 overflow-y-auto no-scrollbar min-w-[16rem]">
-                            {subMenus[activeCategory]?.map((link) => (
-                                <NavLink
-                                    key={link.to}
-                                    to={link.to}
-                                    className={({ isActive }) => `flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm whitespace-nowrap
+                            {subMenus[activeCategory]?.map((link) => {
+                                const isActive = link.to.includes('?')
+                                    ? location.pathname + location.search === link.to
+                                    : location.pathname === link.to || (link.to !== '/' && location.pathname.startsWith(link.to));
+
+                                return (
+                                    <Link
+                                        key={link.to}
+                                        to={link.to}
+                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm whitespace-nowrap
                                         ${isActive
-                                            ? 'bg-primary/10 text-primary font-bold'
-                                            : 'text-gray-500 dark:text-gray-400 hover:bg-primary/5 hover:text-primary'
-                                        }`}
-                                >
-                                    <link.icon size={18} />
-                                    <span>{link.label}</span>
-                                </NavLink>
-                            ))}
+                                                ? 'bg-primary/10 text-primary font-bold'
+                                                : 'text-gray-500 dark:text-gray-400 hover:bg-primary/5 hover:text-primary'
+                                            }`}
+                                    >
+                                        <link.icon size={18} />
+                                        <span>{link.label}</span>
+                                    </Link>
+                                )
+                            })}
                         </div>
                     </motion.div>
                 )}

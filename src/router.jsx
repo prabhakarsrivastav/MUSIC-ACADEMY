@@ -11,6 +11,9 @@ import TeacherProfile from './pages/Teachers/TeacherProfile';
 import LessonManagement from './pages/Lessons/LessonManagement';
 import FinanceDashboard from './pages/Finance/FinanceDashboard';
 import Chat from './pages/Chat/Chat';
+import BookingAnalytics from './pages/Bookings/BookingAnalytics';
+import BookingList from './pages/Bookings/BookingList';
+import SettingsPage from './pages/Settings/Settings';
 
 
 const router = createBrowserRouter([
@@ -61,6 +64,18 @@ const router = createBrowserRouter([
             {
                 path: "chat",
                 element: <Chat />,
+            },
+            {
+                path: "bookings/analytics",
+                element: <BookingAnalytics />,
+            },
+            {
+                path: "bookings/list",
+                element: <BookingList />,
+            },
+            {
+                path: "settings",
+                element: <SettingsPage />,
             },
         ],
     },

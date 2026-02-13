@@ -17,7 +17,8 @@ import {
   Map,
   Eye,
   Edit,
-  Trash2
+  Trash2,
+  ChevronRight
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -96,7 +97,11 @@ const TeachersList = () => {
       <header className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
         <div>
           <h2 className="text-3xl font-bold tracking-tight mb-1">Teacher Directory</h2>
-          <p className="text-slate-500 dark:text-slate-400">Managing 24 faculty members in Montreal district.</p>
+          <nav className="flex items-center gap-2 text-sm opacity-60 mt-1 dark:text-slate-400">
+            <Link to="/"><span>Dashboard</span></Link>
+            <ChevronRight size={14} />
+            <span className="text-primary font-medium">Teachers</span>
+          </nav>
         </div>
         <div className="flex items-center gap-3">
           <div className="relative group">
@@ -120,7 +125,7 @@ const TeachersList = () => {
         animate="visible"
       >
         {/* Featured: Teacher of the Month */}
-        <motion.div variants={itemVariants} className="md:col-span-2 lg:col-span-2 bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-8 rounded-xl flex flex-col justify-between relative overflow-hidden group shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <motion.div variants={itemVariants} className="md:col-span-2 lg:col-span-2 bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-8 rounded-xl flex flex-col justify-between relative overflow-hidden group shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 card-glow">
           <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-500">
             <Award size={120} />
           </div>
@@ -157,7 +162,7 @@ const TeachersList = () => {
         </motion.div>
 
         {/* Stats Card 1 */}
-        <motion.div variants={itemVariants} className="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <motion.div variants={itemVariants} className="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 card-glow">
           <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 rounded-xl flex items-center justify-center">
             <Clock size={24} />
           </div>
@@ -172,7 +177,7 @@ const TeachersList = () => {
         </motion.div>
 
         {/* Stats Card 2 */}
-        <motion.div variants={itemVariants} className="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <motion.div variants={itemVariants} className="bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 card-glow">
           <div className="w-12 h-12 bg-orange-50 dark:bg-orange-900/30 text-primary rounded-xl flex items-center justify-center">
             <Users size={24} />
           </div>
@@ -189,7 +194,7 @@ const TeachersList = () => {
 
 
         {/* Location Card */}
-        <motion.div variants={itemVariants} className="lg:col-span-2 bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <motion.div variants={itemVariants} className="lg:col-span-2 bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 card-glow">
           <div className="bg-primary/5 p-6 rounded-2xl text-primary">
             <MapPin size={40} />
           </div>
@@ -212,7 +217,7 @@ const TeachersList = () => {
 
 
         {/* Map District Overview */}
-        <motion.div variants={itemVariants} className="lg:col-span-2 bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl overflow-hidden relative shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+        <motion.div variants={itemVariants} className="lg:col-span-2 bento-card bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 p-6 rounded-xl overflow-hidden relative shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 card-glow">
           <div className="absolute inset-0 bg-primary/5 opacity-40 pointer-events-none"></div>
           <div className="relative z-10">
             <h4 className="font-bold text-xl mb-4 dark:text-white">Montreal District Overview</h4>
@@ -234,7 +239,7 @@ const TeachersList = () => {
         animate="visible"
       >
         {/* Search and Filter Bar */}
-        <motion.div variants={itemVariants} className="glass-card p-4 rounded-2xl flex flex-wrap items-center gap-4 bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm">
+        <motion.div variants={itemVariants} className="glass-card p-4 rounded-2xl flex flex-wrap items-center gap-4 bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm card-glow">
           <div className="relative flex-1 min-w-[300px]">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 opacity-40 text-slate-500" size={20} />
             <input
@@ -261,7 +266,7 @@ const TeachersList = () => {
         </motion.div>
 
         {/* Table Container */}
-        <motion.div variants={itemVariants} className="glass-card rounded-2xl overflow-hidden shadow-sm bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md">
+        <motion.div variants={itemVariants} className="glass-card rounded-2xl overflow-hidden shadow-sm bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
