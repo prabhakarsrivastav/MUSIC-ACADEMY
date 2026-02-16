@@ -49,6 +49,48 @@ const Analytics = () => {
     }
   };
 
+  const [hoveredData, setHoveredData] = React.useState(null);
+
+  const enrollmentData = [
+    { label: 'Jan', strings: 35, piano: 25 },
+    { label: 'Feb', strings: 42, piano: 28 },
+    { label: 'Mar', strings: 38, piano: 35 },
+    { label: 'Apr', strings: 55, piano: 42 },
+    { label: 'May', strings: 65, piano: 48 },
+    { label: 'Jun', strings: 72, piano: 55 },
+    { label: 'Jul', strings: 68, piano: 52 },
+    { label: 'Aug', strings: 85, piano: 65 },
+    { label: 'Sep', strings: 95, piano: 72 },
+    { label: 'Oct', strings: 92, piano: 78 },
+    { label: 'Nov', strings: 105, piano: 85 },
+    { label: 'Dec', strings: 115, piano: 92 }
+  ];
+
+  const getChartPoints = (key) => {
+    const maxVal = 130; // Fixed max scale
+    const width = 1000;
+    const height = 200;
+
+    return enrollmentData.map((d, i) => {
+      const x = (i / (enrollmentData.length - 1)) * width;
+      const y = height - (d[key] / maxVal) * 160 - 20; // Scale to fit nicely
+      return { x, y, ...d };
+    });
+  };
+
+  const generateChartPath = (points, isArea = false) => {
+    const width = 1000;
+    const height = 200;
+    let path = `M ${points.map(p => `${p.x},${p.y}`).join(' L ')}`;
+    if (isArea) {
+      path += ` L ${width},${height} L 0,${height} Z`;
+    }
+    return path;
+  };
+
+  const stringsPoints = getChartPoints('strings');
+  const pianoPoints = getChartPoints('piano');
+
   return (
     <div className="flex-1 overflow-y-auto no-scrollbar p-6 lg:p-8 bg-background-light dark:bg-background-dark font-display">
       {/* Header */}
@@ -179,25 +221,65 @@ const Analytics = () => {
                 </div>
               </div>
             </div>
-            <div className="relative h-64 w-full">
-              {/* Faux Line Chart SVG */}
-              <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1000 200">
+            <div className="relative h-64 w-full" onMouseLeave={() => setHoveredData(null)}>
+              {/* Dynamic Line Chart SVG */}
+              <svg className="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 1000 200">
                 <defs>
                   <linearGradient id="gradientLine" x1="0%" x2="0%" y1="0%" y2="100%">
                     <stop offset="0%" stopColor="rgba(239, 96, 52, 0.4)" stopOpacity="1"></stop>
                     <stop offset="100%" stopColor="rgba(239, 96, 52, 0)" stopOpacity="0"></stop>
                   </linearGradient>
                 </defs>
-                {/* Area */}
-                <path d="M0,180 L100,160 L200,170 L300,120 L400,110 L500,90 L600,100 L700,60 L800,40 L900,50 L1000,20 L1000,200 L0,200 Z" fill="url(#gradientLine)"></path>
-                {/* Line */}
-                <path d="M0,180 L100,160 L200,170 L300,120 L400,110 L500,90 L600,100 L700,60 L800,40 L900,50 L1000,20" fill="none" stroke="#ef6034" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"></path>
-                {/* Secondary Line */}
-                <path d="M0,190 L100,185 L200,150 L300,160 L400,140 L500,130 L600,120 L700,110 L800,90 L900,100 L1000,80" fill="none" stroke="rgba(239, 96, 52, 0.3)" strokeDasharray="5,5" strokeWidth="2"></path>
+
+                {/* Area (Strings) */}
+                <path d={generateChartPath(stringsPoints, true)} fill="url(#gradientLine)"></path>
+
+                {/* Line (Strings) */}
+                <path d={generateChartPath(stringsPoints)} fill="none" stroke="#ef6034" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"></path>
+
+                {/* Secondary Line (Piano) */}
+                <path d={generateChartPath(pianoPoints)} fill="none" stroke="rgba(239, 96, 52, 0.3)" strokeDasharray="5,5" strokeWidth="2"></path>
+
+                {/* Interactive Dots */}
+                {stringsPoints.map((point, i) => (
+                  <g key={i} onMouseEnter={() => setHoveredData(point)}>
+                    <circle
+                      cx={point.x}
+                      cy={point.y}
+                      r="6"
+                      className="fill-primary stroke-white stroke-2 cursor-pointer transition-all hover:r-8 hover:stroke-4 opacity-0 hover:opacity-100"
+                    />
+                    {/* Invisible Hit Area */}
+                    <circle cx={point.x} cy={point.y} r="20" fill="transparent" className="cursor-pointer" />
+                  </g>
+                ))}
               </svg>
+
+              {/* Tooltip */}
+              {hoveredData && (
+                <div
+                  className="absolute bg-slate-900 text-white text-xs rounded-lg p-3 shadow-xl transform -translate-x-1/2 -translate-y-full pointer-events-none z-10"
+                  style={{ left: `${(enrollmentData.findIndex(d => d.label === hoveredData.label) / (enrollmentData.length - 1)) * 100}%`, top: `${hoveredData.y - 10}px` }} // Approximate positioning
+                >
+                  <p className="font-bold mb-1">{hoveredData.label}</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                    <span>Strings: {hoveredData.strings}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-primary/30"></div>
+                    <span>Piano: {hoveredData.piano}</span>
+                  </div>
+                  {/* Arrow */}
+                  <div className="absolute left-1/2 -bottom-1 w-2 h-2 bg-slate-900 transform -translate-x-1/2 rotate-45"></div>
+                </div>
+              )}
+
               {/* X Axis Labels */}
               <div className="flex justify-between mt-4 text-xs font-medium text-slate-400">
-                <span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span>
+                {enrollmentData.filter((_, i) => i % 2 === 0).map((d, i) => (
+                  <span key={i}>{d.label}</span>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -295,14 +377,15 @@ const Analytics = () => {
             <p className="text-sm text-slate-500 mb-8">Quarterly distribution</p>
             <div className="h-48 flex items-end justify-between gap-2 px-2">
               {[
-                { t: '70%', b: '20%' },
-                { t: '65%', b: '25%' },
-                { t: '80%', b: '15%' },
-                { t: '75%', b: '22%' }
+                { t: '60%', b: '25%', m: '15%' },
+                { t: '55%', b: '30%', m: '15%' },
+                { t: '70%', b: '20%', m: '10%' },
+                { t: '65%', b: '22%', m: '13%' }
               ].map((h, i) => (
-                <div key={i} className="flex-1 space-y-1 group cursor-pointer hover:scale-105 transition-transform">
-                  <div className="w-full bg-primary rounded-t group-hover:bg-primary/90 transition-colors" style={{ height: h.t }} title="Tuition"></div>
-                  <div className="w-full bg-primary/30 rounded-b group-hover:bg-primary/40 transition-colors" style={{ height: h.b }} title="Books"></div>
+                <div key={i} className="flex-1 space-y-1 group cursor-pointer hover:scale-105 transition-transform flex flex-col justify-end h-full">
+                  <div className="w-full bg-primary rounded-t-sm group-hover:bg-primary/90 transition-colors" style={{ height: h.t }} title="Tuition"></div>
+                  <div className="w-full bg-primary/50 group-hover:bg-primary/60 transition-colors" style={{ height: h.b }} title="Materials"></div>
+                  <div className="w-full bg-primary/20 rounded-b-sm group-hover:bg-primary/30 transition-colors" style={{ height: h.m }} title="Merchandise"></div>
                 </div>
               ))}
             </div>
@@ -312,14 +395,18 @@ const Analytics = () => {
               <span className="flex-1">Q3</span>
               <span className="flex-1">Q4</span>
             </div>
-            <div className="mt-8 flex gap-4">
+            <div className="mt-8 flex gap-4 flex-wrap">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <span className="text-xs text-slate-600 dark:text-slate-400">Tuition Fees</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Tuition</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-primary/30"></div>
+                <div className="w-2 h-2 rounded-full bg-primary/50"></div>
                 <span className="text-xs text-slate-600 dark:text-slate-400">Materials</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary/20"></div>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Merch</span>
               </div>
             </div>
           </motion.div>

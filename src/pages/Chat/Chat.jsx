@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-    Search, Phone, Folder, MoreVertical, PlusCircle, Smile, Mic, Send,
-    CheckCheck, Music, Settings, FileText, Check, X, Mail, MapPin, Calendar, Star
+    CheckCheck, Music, Settings, FileText, Check, X, Mail, MapPin, Calendar, Star, ArrowLeft, Search, Phone, Folder, Paperclip, Smile, Video, PhoneCall, MoreVertical, PlusCircle, Mic, Image, Send
 } from 'lucide-react';
 
 const ProfileModal = ({ contact, onClose }) => {
@@ -137,6 +136,7 @@ const Chat = () => {
     ]);
 
     const [activeChatId, setActiveChatId] = useState(1);
+    const [isMobileChatOpen, setIsMobileChatOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [messages, setMessages] = useState({
         1: [
@@ -198,7 +198,7 @@ const Chat = () => {
                 <ProfileModal contact={activeContact} onClose={() => setIsProfileOpen(false)} />
             )}
 
-            <aside className="w-80 bg-white dark:bg-zinc-900 border-r border-primary/5 flex flex-col z-20">
+            <aside className={`w-full md:w-80 bg-white dark:bg-zinc-900 border-r border-primary/5 flex-col z-20 ${isMobileChatOpen ? 'hidden md:flex' : 'flex'}`}>
                 <div className="p-6">
                     <div className="flex items-center gap-3 mb-6">
                         {/*<div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/30">
@@ -219,7 +219,10 @@ const Chat = () => {
                     {contacts.map(contact => (
                         <div
                             key={contact.id}
-                            onClick={() => setActiveChatId(contact.id)}
+                            onClick={() => {
+                                setActiveChatId(contact.id);
+                                setIsMobileChatOpen(true);
+                            }}
                             className={`p-4 rounded-2xl mb-2 cursor-pointer transition-all group ${activeChatId === contact.id
                                 ? 'bg-primary/5 border border-primary/10'
                                 : 'hover:bg-slate-50 dark:hover:bg-zinc-800/50'
@@ -274,29 +277,37 @@ const Chat = () => {
                 </div>
             </aside>
 
-            <main className="flex-1 flex flex-col bg-chat-cream dark:bg-zinc-950/40">
+            <main className={`flex-1 flex-col bg-chat-cream dark:bg-zinc-950/40 ${isMobileChatOpen ? 'flex' : 'hidden md:flex'}`}>
                 {activeContact ? (
                     <>
-                        <header className="h-20 glass-effect dark:bg-zinc-900/80 border-b border-primary/5 px-8 flex items-center justify-between z-10">
-                            <div
-                                className="flex items-center gap-4 cursor-pointer hover:opacity-80 transition-opacity"
-                                onClick={() => setIsProfileOpen(true)}
-                            >
-                                <div className="relative">
-                                    <img
-                                        alt={activeContact.name}
-                                        className="w-10 h-10 rounded-full object-cover"
-                                        src={activeContact.avatar}
-                                    />
-                                    {activeContact.online && (
-                                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white dark:border-zinc-900 rounded-full"></div>
-                                    )}
-                                </div>
-                                <div>
-                                    <h2 className="font-bold text-base hover:text-primary transition-colors">{activeContact.name}</h2>
-                                    <p className="text-xs text-green-600 dark:text-green-400 font-medium">
-                                        {activeContact.role} • {activeContact.desc}
-                                    </p>
+                        <header className="h-16 md:h-20 glass-effect bg-white dark:bg-zinc-900/80 border-b border-primary/5 px-4 md:px-8 flex items-center justify-between z-10">
+                            <div className="flex items-center gap-3 md:gap-4">
+                                <button
+                                    onClick={() => setIsMobileChatOpen(false)}
+                                    className="md:hidden p-2 -ml-2 text-slate-500 hover:text-primary transition-colors"
+                                >
+                                    <ArrowLeft size={20} />
+                                </button>
+                                <div
+                                    className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+                                    onClick={() => setIsProfileOpen(true)}
+                                >
+                                    <div className="relative">
+                                        <img
+                                            alt={activeContact.name}
+                                            className="w-10 h-10 rounded-full object-cover"
+                                            src={activeContact.avatar}
+                                        />
+                                        {activeContact.online && (
+                                            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white dark:border-zinc-900 rounded-full"></div>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <h2 className="font-bold text-base hover:text-primary transition-colors">{activeContact.name}</h2>
+                                        <p className="text-xs text-green-600 dark:text-green-400 font-medium">
+                                            {activeContact.role} • {activeContact.desc}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
@@ -360,7 +371,7 @@ const Chat = () => {
                             <div ref={messagesEndRef} />
                         </section>
 
-                        <footer className="p-6 bg-chat-cream dark:bg-zinc-950/20">
+                        <footer className="p-4 md:p-6 bg-chat-cream dark:bg-zinc-950/20">
                             <div className="max-w-5xl mx-auto relative flex items-center gap-3">
                                 <div className="flex-1 bg-white dark:bg-zinc-800 rounded-full shadow-xl shadow-primary/5 flex items-center px-4 border border-primary/5">
                                     <button className="p-2 text-slate-400 hover:text-primary transition-colors">

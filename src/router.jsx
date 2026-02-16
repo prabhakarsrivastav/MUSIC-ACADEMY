@@ -10,13 +10,26 @@ import ReviewsList from './pages/Reviews/ReviewsList';
 import TeacherProfile from './pages/Teachers/TeacherProfile';
 import LessonManagement from './pages/Lessons/LessonManagement';
 import FinanceDashboard from './pages/Finance/FinanceDashboard';
+import TransactionsPage from './pages/Finance/TransactionsPage';
+import InvoicesPage from './pages/Finance/InvoicesPage';
+import RefundsPage from './pages/Finance/RefundsPage';
+import TeacherPayoutsPage from './pages/Finance/TeacherPayoutsPage';
+import CouponsPage from './pages/Finance/CouponsPage';
+import ReportsPage from './pages/Finance/ReportsPage';
 import Chat from './pages/Chat/Chat';
 import BookingAnalytics from './pages/Bookings/BookingAnalytics';
 import BookingList from './pages/Bookings/BookingList';
 import SettingsPage from './pages/Settings/Settings';
 
 
+import Login from './pages/Auth/Login';
+
+
 const router = createBrowserRouter([
+    {
+        path: "/login",
+        element: <Login />,
+    },
     {
         path: "/",
         element: <AdminLayout />,
@@ -60,6 +73,30 @@ const router = createBrowserRouter([
             {
                 path: "finance",
                 element: <FinanceDashboard />,
+            },
+            {
+                path: "finance/transactions",
+                element: <TransactionsPage />,
+            },
+            {
+                path: "finance/invoices",
+                element: <InvoicesPage />,
+            },
+            {
+                path: "finance/refunds",
+                element: <RefundsPage />,
+            },
+            {
+                path: "finance/payouts",
+                element: <TeacherPayoutsPage />,
+            },
+            {
+                path: "finance/coupons",
+                element: <CouponsPage />,
+            },
+            {
+                path: "finance/reports",
+                element: <ReportsPage />,
             },
             {
                 path: "chat",

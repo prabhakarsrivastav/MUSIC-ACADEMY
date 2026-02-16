@@ -124,7 +124,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* KPI Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Total Students */}
           <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between group hover:shadow-lg transition-all card-glow">
             <div className="flex items-center justify-between mb-4">
@@ -234,7 +234,7 @@ const Dashboard = () => {
           </motion.div>
         </div>
         {/* Main Visualization Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Revenue Chart Card */}
           <motion.div variants={itemVariants} className="lg:col-span-2 bg-white dark:bg-background-dark p-8 rounded-2xl shadow-sm border border-primary/5 card-glow">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
@@ -398,8 +398,8 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-            <div className="flex-1 overflow-x-auto">
-              <table className="w-full text-left">
+            <div className="flex-1 overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
+              <table className="w-full text-left min-w-[500px]">
                 <thead>
                   <tr className="border-b border-gray-100 dark:border-gray-800">
                     <th className="pb-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Time</th>
@@ -460,8 +460,8 @@ const Dashboard = () => {
                 </button>
               </div>
             </div>
-            <div className="flex-1 overflow-x-auto">
-              <table className="w-full text-left">
+            <div className="flex-1 overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
+              <table className="w-full text-left min-w-[500px]">
                 <thead>
                   <tr className="border-b border-gray-100 dark:border-gray-800">
                     <th className="pb-3 text-xs font-bold text-gray-400 uppercase tracking-wider">Date</th>
@@ -632,21 +632,21 @@ const Dashboard = () => {
                   <div className="w-3 h-3 rounded-full bg-primary"></div>
                   <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Piano</span>
                 </div>
-                <span className="text-sm font-bold">45%</span>
+                <span className="text-sm font-bold dark:text-white">45%</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-orange-300"></div>
                   <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Guitar</span>
                 </div>
-                <span className="text-sm font-bold">30%</span>
+                <span className="text-sm font-bold dark:text-white">30%</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-primary/20"></div>
                   <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Others</span>
                 </div>
-                <span className="text-sm font-bold">25%</span>
+                <span className="text-sm font-bold dark:text-white">25%</span>
               </div>
             </div>
           </motion.div>

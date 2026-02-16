@@ -12,6 +12,9 @@ export default {
                 "background-light": "#FFF5EB", // Updated to match dashboard 2
                 "background-dark": "#0F172A", // Updated to match dashboard 2
                 "sidebar-dark": "#1E293B",
+                "sidebar-light-primary": "#FFF0E5",
+                "sidebar-light-secondary": "#FFFCF9",
+                "sidebar-dark-secondary": "#131C30",
                 "accent-cream": "#FFF5EB",
                 "charcoal": "#2B2B2B",
                 "secondary": "#9d71fd",

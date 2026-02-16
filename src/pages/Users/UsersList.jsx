@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import AddStudentModal from './AddStudentModal';
 
 const UsersList = () => {
   const containerVariants = {
@@ -33,6 +34,8 @@ const UsersList = () => {
       }
     }
   };
+
+  const [isAddStudentModalOpen, setIsAddStudentModalOpen] = useState(false);
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -112,24 +115,31 @@ const UsersList = () => {
       <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
 
       {/* Header */}
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 mb-8">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Student Management</h2>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Student Management</h2>
           <nav className="flex items-center gap-2 text-sm opacity-60 mt-1 dark:text-slate-400">
             <Link to="/">Dashboard</Link>
             <ChevronRight size={14} />
             <span className="text-primary font-medium">Students</span>
           </nav>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 px-5 py-3 bg-white/50 dark:bg-white/5 border border-white dark:border-white/10 rounded-xl font-medium hover:bg-white dark:hover:bg-white/10 transition-all text-slate-700 dark:text-slate-200 shadow-sm">
+        <div className="flex flex-wrap items-center gap-3">
+          <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-3 bg-white/50 dark:bg-white/5 border border-white dark:border-white/10 rounded-xl font-medium hover:bg-white dark:hover:bg-white/10 transition-all text-slate-700 dark:text-slate-200 shadow-sm">
             <Download size={20} className="text-primary" />
-            Export Data
+            <span className="hidden sm:inline">Export Data</span>
+            <span className="sm:hidden">Export</span>
           </button>
-          <button className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-bold shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all">
+          <button
+            onClick={() => setIsAddStudentModalOpen(true)}
+            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-xl font-bold shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          >
             <UserPlus size={20} />
-            Add New Student
+            <span className="hidden sm:inline">Add New Student</span>
+            <span className="sm:hidden">Add</span>
           </button>
+
+          <AddStudentModal isOpen={isAddStudentModalOpen} onClose={() => setIsAddStudentModalOpen(false)} />
         </div>
       </header>
 
@@ -140,8 +150,8 @@ const UsersList = () => {
         animate="visible"
       >
         {/* Bento Grid Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <motion.div variants={itemVariants} className="glass-card p-6 rounded-2xl shadow-sm bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="glass-card p-6 rounded-2xl shadow-sm bg-white dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-between mb-4">
               <div className="p-2 bg-primary/10 rounded-lg text-primary">
                 <Users size={24} />
@@ -151,7 +161,7 @@ const UsersList = () => {
             <p className="text-sm opacity-60 font-medium text-slate-600 dark:text-slate-400">Total Students</p>
             <h3 className="text-3xl font-bold mt-1 text-slate-900 dark:text-white">1,284</h3>
           </motion.div>
-          <motion.div variants={itemVariants} className="glass-card p-6 rounded-2xl shadow-sm bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="glass-card p-6 rounded-2xl shadow-sm bg-white dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-between mb-4">
               <div className="p-2 bg-primary/10 rounded-lg text-primary">
                 <CheckCircle size={24} />
@@ -161,7 +171,7 @@ const UsersList = () => {
             <p className="text-sm opacity-60 font-medium text-slate-600 dark:text-slate-400">Currently Enrolled</p>
             <h3 className="text-3xl font-bold mt-1 text-slate-900 dark:text-white">942</h3>
           </motion.div>
-          <motion.div variants={itemVariants} className="glass-card p-6 rounded-2xl shadow-sm bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="glass-card p-6 rounded-2xl shadow-sm bg-white dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-between mb-4">
               <div className="p-2 bg-primary/10 rounded-lg text-primary">
                 <Piano size={24} />
@@ -170,7 +180,7 @@ const UsersList = () => {
             <p className="text-sm opacity-60 font-medium text-slate-600 dark:text-slate-400">Most Popular</p>
             <h3 className="text-3xl font-bold mt-1 text-slate-900 dark:text-white">Piano</h3>
           </motion.div>
-          <motion.div variants={itemVariants} className="glass-card p-6 rounded-2xl shadow-sm bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="glass-card p-6 rounded-2xl shadow-sm bg-white dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-between mb-4">
               <div className="p-2 bg-primary/10 rounded-lg text-primary">
                 <Star size={24} />
@@ -182,7 +192,7 @@ const UsersList = () => {
         </div>
 
         {/* Search and Filter Bar */}
-        <motion.div variants={itemVariants} className="glass-card p-4 rounded-2xl flex flex-wrap items-center gap-4 bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm card-glow">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="glass-card p-4 rounded-2xl flex flex-wrap items-center gap-4 bg-white dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md shadow-sm card-glow hover:shadow-lg transition-all duration-300">
           <div className="relative flex-1 min-w-[300px]">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 opacity-40 text-slate-500" size={20} />
             <input
@@ -212,9 +222,9 @@ const UsersList = () => {
         </motion.div>
 
         {/* Table Container */}
-        <motion.div variants={itemVariants} className="glass-card rounded-2xl overflow-hidden shadow-sm bg-white/40 dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+        <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="glass-card rounded-2xl overflow-hidden shadow-sm bg-white dark:bg-slate-900/40 border border-white/50 dark:border-white/10 backdrop-blur-md card-glow hover:shadow-lg transition-all duration-300">
+          <div className="overflow-x-auto -mx-6 px-6 md:mx-0 md:px-0">
+            <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
                 <tr className="bg-white/50 dark:bg-white/5 border-b border-white/50 dark:border-white/10">
                   <th className="px-6 py-5 font-bold text-sm text-slate-700 dark:text-slate-200">Student Name</th>
@@ -252,7 +262,7 @@ const UsersList = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <Link to="#" className="inline-flex p-2 hover:bg-primary/10 rounded-lg text-slate-400 hover:text-primary transition-colors">
+                      <Link to={`/users/${student.id.replace('#', '')}`} className="inline-flex p-2 hover:bg-primary/10 rounded-lg text-slate-400 hover:text-primary transition-colors">
                         <Eye size={20} />
                       </Link>
                     </td>

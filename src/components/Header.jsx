@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import CommandPalette from './CommandPalette';
 
 const Header = ({ toggleSidebar }) => {
     // Theme State
@@ -13,6 +14,20 @@ const Header = ({ toggleSidebar }) => {
     // Search State
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+
+    // Keyboard shortcut for Command Palette
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                setIsCommandPaletteOpen(prev => !prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     // Dropdown States
     const [activeDropdown, setActiveDropdown] = useState(null); // 'notifications', 'messages', 'profile'
@@ -33,7 +48,7 @@ const Header = ({ toggleSidebar }) => {
     };
 
     return (
-        <header className="h-20 px-8 flex items-center justify-between transition-all duration-300 bg-transparent flex-shrink-0 relative z-50">
+        <header className="h-20 px-4 md:px-8 flex items-center justify-between transition-all duration-300 bg-transparent flex-shrink-0 relative z-40">
 
             {/* Left Section: Menu & Search */}
             <div className="flex items-center gap-4">
@@ -45,26 +60,16 @@ const Header = ({ toggleSidebar }) => {
                 </button>
 
                 {/* Expandable Search Bar */}
-                <div className={`flex items-center transition-all duration-300 ${isSearchOpen ? 'w-64 bg-white dark:bg-slate-800 shadow-lg' : 'w-10 bg-transparent'} rounded-xl overflow-hidden`}>
-                    <button
-                        onClick={() => setIsSearchOpen(!isSearchOpen)}
-                        className={`text-slate-500 hover:text-primary transition-colors p-2.5 ${isSearchOpen ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl'}`}
-                    >
-                        {isSearchOpen ? <Search size={20} className="text-primary" /> : <Search size={24} />}
-                    </button>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className={`bg-transparent border-none outline-none text-sm px-2 text-slate-700 dark:text-slate-200 placeholder:text-slate-400 w-full ${isSearchOpen ? 'opacity-100' : 'opacity-0'}`}
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                    {isSearchOpen && (
-                        <button onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }} className="p-2 text-slate-400 hover:text-slate-600">
-                            <X size={16} />
-                        </button>
-                    )}
-                </div>
+                {/* Command Palette Trigger */}
+                <button
+                    onClick={() => setIsCommandPaletteOpen(true)}
+                    className="flex items-center gap-0 md:gap-3 p-2.5 md:px-4 md:py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl text-slate-500 dark:text-slate-400 transition-colors group"
+                >
+                    <Search size={20} className="group-hover:text-primary transition-colors" />
+
+                </button>
+
+                <CommandPalette isOpen={isCommandPaletteOpen} onClose={() => setIsCommandPaletteOpen(false)} />
             </div>
 
             {/* Right Section: Actions & Profile */}
