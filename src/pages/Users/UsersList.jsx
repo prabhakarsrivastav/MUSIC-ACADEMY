@@ -23,6 +23,7 @@ import {
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import AddStudentModal from './AddStudentModal';
+import StudentProfile from './StudentProfile';
 
 const UsersList = () => {
   const containerVariants = {
@@ -262,7 +263,7 @@ const UsersList = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <Link to={`/users/${student.id.replace('#', '')}`} className="inline-flex p-2 hover:bg-primary/10 rounded-lg text-slate-400 hover:text-primary transition-colors">
+                      <Link to='/users/profile' className="inline-flex p-2 hover:bg-primary/10 rounded-lg text-slate-400 hover:text-primary transition-colors">
                         <Eye size={20} />
                       </Link>
                     </td>

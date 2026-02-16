@@ -21,7 +21,7 @@ import BookingAnalytics from './pages/Bookings/BookingAnalytics';
 import BookingList from './pages/Bookings/BookingList';
 import SettingsPage from './pages/Settings/Settings';
 
-
+import StudentProfile from './pages/Users/StudentProfile';
 import Login from './pages/Auth/Login';
 
 
@@ -114,6 +114,11 @@ const router = createBrowserRouter([
                 path: "settings",
                 element: <SettingsPage />,
             },
+            {
+                path: "users/profile",
+                element: <StudentProfile />,
+            },
+
         ],
     },
 
