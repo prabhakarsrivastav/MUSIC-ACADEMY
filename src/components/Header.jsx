@@ -210,7 +210,7 @@ const Header = ({ toggleSidebar }) => {
                                         <Settings size={18} className="group-hover:text-primary transition-colors" />
                                         <span className="text-sm font-bold">Settings</span>
                                     </Link>
-                                    <Link to="/profile" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white group">
+                                    <Link to="teachers/profile" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-white group">
                                         <User size={18} className="group-hover:text-primary transition-colors" />
                                         <span className="text-sm font-bold">My Profile</span>
                                     </Link>
