@@ -20,9 +20,11 @@ import Chat from './pages/Chat/Chat';
 import BookingAnalytics from './pages/Bookings/BookingAnalytics';
 import BookingList from './pages/Bookings/BookingList';
 import SettingsPage from './pages/Settings/Settings';
+import Profile from './pages/profile/Profile';
 
 import StudentProfile from './pages/Users/StudentProfile';
 import Login from './pages/Auth/Login';
+import SupportPage from './pages/Chat/SupportPage';
 
 
 const router = createBrowserRouter([
@@ -45,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path: "analytics",
                 element: <Analytics />,
+            },
+            {
+                path: "profile",
+                element: <Profile />,
             },
             {
                 path: "users",
@@ -118,6 +124,10 @@ const router = createBrowserRouter([
                 path: "users/profile",
                 element: <StudentProfile />,
             },
+            {
+                path: "/chat/support",
+                element: <SupportPage />,
+            }
 
         ],
     },

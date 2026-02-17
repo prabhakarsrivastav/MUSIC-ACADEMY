@@ -24,7 +24,9 @@ const AdminLayout = () => {
       <Sidebar isExpanded={isSidebarOpen} setIsExpanded={setIsSidebarOpen} />
       <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
         <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-        <Outlet />
+        <div className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

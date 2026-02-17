@@ -20,27 +20,27 @@ const FinanceDashboard = () => {
   return (
     <div className="finance-page-container">
       <div className="finance-content-wrapper">
-        <header className="flex justify-between items-center mb-6">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 md:gap-0">
           <div>
-            <h1 className="text-3xl font-black text-gray-900 dark:text-gray-100 tracking-tight">Billing & Command Center</h1>
-            <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
+            <h1 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-gray-100 tracking-tight">Billing & Command Center</h1>
+            <div className="flex items-center gap-2 text-sm text-gray-500 font-medium mt-1 md:mt-0">
               Dashboard <ChevronRight size={14} /> Finance
             </div>
           </div>
-          <div className="flex gap-3">
-            <button className="bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
-              <Plus size={18} /> Create Invoice
+          <div className="flex flex-wrap gap-3 w-full md:w-auto">
+            <button className="flex-1 md:flex-none justify-center bg-primary text-white px-4 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 whitespace-nowrap">
+              <Plus size={18} /> <span className="hidden sm:inline">Create Invoice</span><span className="sm:hidden">Invoice</span>
             </button>
-            <button className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">
-              <DollarSign size={18} /> Record Payment
+            <button className="flex-1 md:flex-none justify-center bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-4 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all whitespace-nowrap">
+              <DollarSign size={18} /> <span className="hidden sm:inline">Record Payment</span><span className="sm:hidden">Payment</span>
             </button>
-            <button className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">
-              <Download size={18} /> Export Report
+            <button className="flex-1 md:flex-none justify-center bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 px-4 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all whitespace-nowrap">
+              <Download size={18} /> <span className="hidden sm:inline">Export Report</span><span className="sm:hidden">Export</span>
             </button>
           </div>
         </header>
 
-        <main className="w-full space-y-8">
+        <main className="w-full space-y-6 md:space-y-8">
           {/* Stats Section */}
           <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Total Revenue */}
@@ -118,11 +118,11 @@ const FinanceDashboard = () => {
           </section>
 
           {/* Trend Graph */}
-          <section className="gloss-card p-6 shadow-premium border-2 border-primary/20 bg-gradient-to-br from-white via-white to-primary/[0.02] dark:from-background-dark dark:via-background-dark dark:to-primary/[0.05] rounded-3xl hover:shadow-xl transition-shadow duration-300 card-glow">
+          <section className="gloss-card p-4 md:p-6 shadow-premium border-2 border-primary/20 bg-gradient-to-br from-white via-white to-primary/[0.02] dark:from-background-dark dark:via-background-dark dark:to-primary/[0.05] rounded-3xl hover:shadow-xl transition-shadow duration-300 card-glow">
             <RevenueTrendChart />
           </section>
 
-          <div className="bg-primary/[0.03] p-6 -mx-6 rounded-[2rem]">
+          <div className="bg-primary/[0.03] p-4 md:p-6 -mx-4 md:-mx-6 rounded-[2rem]">
             <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* Recent Transactions (Small Section) */}
               <div className="lg:col-span-4 gloss-card shadow-gloss overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-background-dark/50 rounded-3xl hover:shadow-xl transition-all duration-300 card-glow">

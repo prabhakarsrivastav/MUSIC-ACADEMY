@@ -20,8 +20,11 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+import AddResourceModal from './AddResourceModal';
+
 const ResourcesList = () => {
     const [activeTab, setActiveTab] = useState('instruments');
+    const [isAddResourceModalOpen, setIsAddResourceModalOpen] = useState(false);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -63,10 +66,11 @@ const ResourcesList = () => {
                         <Download size={20} />
                         Export Data
                     </button>
-                    <button className="bg-primary text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 transition-all">
+                    <button onClick={() => setIsAddResourceModalOpen(true)} className="bg-primary text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 shadow-lg shadow-primary/25 hover:brightness-110 transition-all">
                         <Plus size={20} />
                         New Entry
                     </button>
+                    <AddResourceModal isOpen={isAddResourceModalOpen} onClose={() => setIsAddResourceModalOpen(false)} />
                 </div>
             </header>
 

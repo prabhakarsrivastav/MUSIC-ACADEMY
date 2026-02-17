@@ -1,19 +1,73 @@
 import React, { useState } from 'react';
-import { Search, Plus, Filter, FileText, Send, MoreVertical, Copy, RefreshCcw, Check, X, ChevronRight } from 'lucide-react';
+import { Search, Plus, Filter, FileText, Send, MoreVertical, Copy, RefreshCcw, Check, X, ChevronRight, Trash2 } from 'lucide-react';
 import './finance.css';
 
 const InvoicesPage = () => {
     const [activeTab, setActiveTab] = useState('Sent');
     const [showCreateModal, setShowCreateModal] = useState(false);
 
-    const invoices = [
+    // Initial Data
+    const [invoices, setInvoices] = useState([
         { id: 'INV-2023-001', student: 'Elena Rodriguez', items: 'Piano Masterclass (Sep)', amount: '$240.00', dueDate: 'Oct 30, 2023', status: 'Sent' },
         { id: 'INV-2023-002', student: 'Julian Barnes', items: 'Guitar Basics (Sep)', amount: '$185.00', dueDate: 'Oct 28, 2023', status: 'Paid' },
         { id: 'INV-2023-003', student: 'Sarah Jenkins', items: 'Violin Advance (Sep)', amount: '$300.00', dueDate: 'Oct 25, 2023', status: 'Overdue' },
         { id: 'INV-2023-004', student: 'Mike Ross', items: 'Music Theory (Sep)', amount: '$120.00', dueDate: 'Nov 05, 2023', status: 'Draft' },
-    ];
+    ]);
+
+    // Form State
+    const [student, setStudent] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const [lineItems, setLineItems] = useState([
+        { id: 1, description: 'Piano Masterclass', price: '' }
+    ]);
+    const [discount, setDiscount] = useState('');
+    const [taxRate, setTaxRate] = useState('');
+    const [notes, setNotes] = useState('');
 
     const filteredInvoices = activeTab === 'All' ? invoices : invoices.filter(inv => inv.status === activeTab);
+
+    // Logic
+    const addLineItem = () => {
+        setLineItems([...lineItems, { id: Date.now(), description: '', price: '' }]);
+    };
+
+    const removeLineItem = (id) => {
+        setLineItems(lineItems.filter(item => item.id !== id));
+    };
+
+    const updateLineItem = (id, field, value) => {
+        setLineItems(lineItems.map(item => item.id === id ? { ...item, [field]: value } : item));
+    };
+
+    // Calculations
+    const subtotal = lineItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+    const discountAmount = parseFloat(discount) || 0;
+    const taxAmount = (subtotal - discountAmount) * ((parseFloat(taxRate) || 0) / 100);
+    const total = Math.max(0, subtotal - discountAmount + taxAmount);
+
+    const handleCreateInvoice = () => {
+        if (!student || !dueDate || total === 0) return;
+
+        const newInvoice = {
+            id: `INV-2023-${String(invoices.length + 5).padStart(3, '0')}`,
+            student: student,
+            items: lineItems.map(i => i.description).join(', ') || 'Custom Services',
+            amount: `$${total.toFixed(2)}`,
+            dueDate: new Date(dueDate).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+            status: 'Sent'
+        };
+
+        setInvoices([newInvoice, ...invoices]);
+        setShowCreateModal(false);
+
+        // Reset Form
+        setStudent('');
+        setDueDate('');
+        setLineItems([{ id: Date.now(), description: '', price: '' }]);
+        setDiscount('');
+        setTaxRate('');
+        setNotes('');
+    };
 
     return (
         <div className="finance-page-container">
@@ -126,8 +180,8 @@ const InvoicesPage = () => {
                 {/* Create Invoice Modal */}
                 {showCreateModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm animate-in fade-in duration-200">
-                        <div className="bg-white dark:bg-[#1a1a1a] w-full max-w-2xl rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
-                            <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/20">
+                        <div className="bg-white dark:bg-[#1a1a1a] w-full max-w-2xl rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden max-h-[90vh] overflow-y-auto">
+                            <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/20 sticky top-0 backdrop-blur-md z-10">
                                 <div>
                                     <h3 className="text-xl font-black text-gray-900 dark:text-gray-100">Create New Invoice</h3>
                                     <p className="text-sm text-gray-500">Bill a student for courses or services</p>
@@ -140,60 +194,114 @@ const InvoicesPage = () => {
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold uppercase text-gray-500">Student</label>
-                                        <select className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none">
-                                            <option>Select Student...</option>
-                                            <option>Elena Rodriguez</option>
-                                            <option>Julian Barnes</option>
+                                        <select
+                                            value={student}
+                                            onChange={(e) => setStudent(e.target.value)}
+                                            className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none"
+                                        >
+                                            <option value="">Select Student...</option>
+                                            <option value="Elena Rodriguez">Elena Rodriguez</option>
+                                            <option value="Julian Barnes">Julian Barnes</option>
+                                            <option value="Sarah Jenkins">Sarah Jenkins</option>
+                                            <option value="Mike Ross">Mike Ross</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold uppercase text-gray-500">Due Date</label>
-                                        <input type="date" className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none" />
+                                        <input
+                                            type="date"
+                                            value={dueDate}
+                                            onChange={(e) => setDueDate(e.target.value)}
+                                            className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold uppercase text-gray-500">Courses / Items</label>
-                                    <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-xl space-y-3">
-                                        <div className="flex gap-4">
-                                            <select className="flex-1 p-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">
-                                                <option>Piano Masterclass - Sep 2023</option>
-                                                <option>Guitar Basics - Sep 2023</option>
-                                            </select>
-                                            <input type="number" placeholder="Price" className="w-32 p-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm" />
-                                            <button className="text-red-500 font-bold hover:bg-red-50 p-2 rounded-lg"><X size={16} /></button>
-                                        </div>
-                                        <button className="text-xs text-primary font-bold flex items-center gap-1 hover:underline">
+                                    <label className="text-xs font-bold uppercase text-gray-500">Line Items</label>
+                                    <div className="space-y-3">
+                                        {lineItems.map((item, index) => (
+                                            <div key={item.id} className="flex gap-4 items-start">
+                                                <input
+                                                    type="text"
+                                                    placeholder="Description (e.g. Piano Lesson)"
+                                                    value={item.description}
+                                                    onChange={(e) => updateLineItem(item.id, 'description', e.target.value)}
+                                                    className="flex-1 p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm outline-none focus:ring-2 focus:ring-primary/20"
+                                                />
+                                                <input
+                                                    type="number"
+                                                    placeholder="Price"
+                                                    value={item.price}
+                                                    onChange={(e) => updateLineItem(item.id, 'price', e.target.value)}
+                                                    className="w-32 p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm outline-none focus:ring-2 focus:ring-primary/20"
+                                                />
+                                                {index > 0 && (
+                                                    <button
+                                                        onClick={() => removeLineItem(item.id)}
+                                                        className="text-red-500 hover:bg-red-50 p-3 rounded-xl transition-colors"
+                                                    >
+                                                        <Trash2 size={18} />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        ))}
+                                        <button
+                                            onClick={addLineItem}
+                                            className="text-xs text-primary font-bold flex items-center gap-1 hover:underline mt-2"
+                                        >
                                             <Plus size={14} /> Add Line Item
                                         </button>
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-6">
+                                <div className="grid grid-cols-3 gap-6 pt-4 border-t border-gray-100 dark:border-gray-800">
                                     <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase text-gray-500">Discount</label>
-                                        <input type="text" placeholder="0.00" className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none" />
+                                        <label className="text-xs font-bold uppercase text-gray-500">Discount ($)</label>
+                                        <input
+                                            type="number"
+                                            placeholder="0.00"
+                                            value={discount}
+                                            onChange={(e) => setDiscount(e.target.value)}
+                                            className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold uppercase text-gray-500">Tax (%)</label>
-                                        <input type="text" placeholder="0" className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none" />
+                                        <input
+                                            type="number"
+                                            placeholder="0"
+                                            value={taxRate}
+                                            onChange={(e) => setTaxRate(e.target.value)}
+                                            className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none"
+                                        />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold uppercase text-gray-500">Total</label>
-                                        <div className="w-full p-3 bg-primary/5 border border-primary/20 rounded-xl font-black text-primary text-right">
-                                            $0.00
+                                        <div className="w-full p-3 bg-primary/5 border border-primary/20 rounded-xl font-black text-xl text-primary text-right">
+                                            ${total.toFixed(2)}
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase text-gray-500">Notes</label>
-                                    <textarea className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none h-24 resize-none" placeholder="Thank you for your business..."></textarea>
+                                    <textarea
+                                        value={notes}
+                                        onChange={(e) => setNotes(e.target.value)}
+                                        className="w-full p-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl font-medium focus:ring-2 focus:ring-primary/20 outline-none h-24 resize-none"
+                                        placeholder="Thank you for your business..."
+                                    ></textarea>
                                 </div>
 
-                                <div className="pt-4 flex justify-end gap-4">
-                                    <button onClick={() => setShowCreateModal(false)} className="px-6 py-3 font-bold text-gray-500 hover:bg-gray-100 rounded-xl transition-colors">Cancel</button>
-                                    <button className="finance-button-primary px-8 py-3 rounded-xl">Create Invoice</button>
+                                <div className="pt-4 flex justify-end gap-4 border-t border-gray-100 dark:border-gray-800">
+                                    <button onClick={() => setShowCreateModal(false)} className="px-6 py-3 font-bold text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors">Cancel</button>
+                                    <button
+                                        onClick={handleCreateInvoice}
+                                        className="finance-button-primary px-8 py-3 rounded-xl shadow-lg shadow-indigo-200 dark:shadow-none"
+                                    >
+                                        Create Invoice
+                                    </button>
                                 </div>
                             </div>
                         </div>

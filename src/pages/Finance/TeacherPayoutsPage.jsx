@@ -13,11 +13,11 @@ const TeacherPayoutsPage = () => {
 
     return (
         <div className="finance-page-container flex">
-            <div className={`flex-1 transition-all duration-300 ${selectedTeacher ? 'mr-96' : ''}`}>
+            <div className={`flex-1 min-w-0 transition-all duration-300 ${selectedTeacher ? 'mr-0 md:mr-96' : ''}`}>
                 <div className="finance-content-wrapper">
                     <header className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
                         <div>
-                            <h1 className="text-3xl font-black text-gray-900 dark:text-gray-100 tracking-tight">Teacher Payouts</h1>
+                            <h1 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-gray-100 tracking-tight">Teacher Payouts</h1>
                             <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
                                 Dashboard <ChevronRight size={14} /> Finance <ChevronRight size={14} /> Payouts
                             </div>
@@ -31,19 +31,19 @@ const TeacherPayoutsPage = () => {
                     <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                         <div className="finance-card-base p-6 bg-brand-peach dark:bg-background-dark/50">
                             <p className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Total Payable</p>
-                            <h3 className="text-3xl font-black text-gray-900 dark:text-gray-100 mt-1">$18,450.00</h3>
+                            <h3 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-gray-100 mt-1">$18,450.00</h3>
                             <p className="text-xs font-bold text-gray-400 dark:text-gray-500 mt-2">Oct 2023 Cycle</p>
                         </div>
                         <div className="finance-card-base p-6">
                             <p className="text-sm font-bold text-gray-500 uppercase tracking-wide">Paid this Month</p>
-                            <h3 className="text-3xl font-black text-gray-900 dark:text-gray-100 mt-1">$3,100.00</h3>
+                            <h3 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-gray-100 mt-1">$3,100.00</h3>
                             <div className="w-full bg-gray-100 dark:bg-gray-800 h-1.5 mt-3 rounded-full overflow-hidden">
                                 <div className="bg-green-500 h-full w-[17%]"></div>
                             </div>
                         </div>
                         <div className="finance-card-base p-6">
                             <p className="text-sm font-bold text-gray-500 uppercase tracking-wide">Pending Payouts</p>
-                            <h3 className="text-3xl font-black text-amber-500 mt-1">$15,350.00</h3>
+                            <h3 className="text-2xl md:text-3xl font-black text-amber-500 mt-1">$15,350.00</h3>
                             <p className="text-xs font-bold text-gray-400 mt-2">Due in 3 days</p>
                         </div>
                     </section>

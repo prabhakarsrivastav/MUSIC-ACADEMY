@@ -9,9 +9,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import DatePicker from '../../components/ui/DatePicker';
 
+import AddLessonModal from './AddLessonModal';
+
 const LessonManagement = () => {
     const [currentDate, setCurrentDate] = React.useState(new Date());
     const [isCalendarOpen, setIsCalendarOpen] = React.useState(false);
+    const [isAddLessonModalOpen, setIsAddLessonModalOpen] = React.useState(false);
 
     // Close calendar when clicking outside
     React.useEffect(() => {
@@ -27,7 +30,7 @@ const LessonManagement = () => {
             {/* Main Content Area */}
             <main className="flex-1 flex flex-col relative overflow-hidden">
                 {/* Header Section */}
-                <header className="h-24 px-8 flex items-center justify-between bg-transparent dark:bg-zinc-900/50 backdrop-blur-md sticky top-0 z-20">
+                <header className="h-auto md:h-24 py-4 md:py-0 px-4 md:px-8 flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-zinc-900/50 backdrop-blur-md sticky top-0 z-20 gap-4 md:gap-0">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Lesson Management</h1>
                         <nav className="flex items-center gap-2 text-sm opacity-60 mt-1 dark:text-slate-400">
@@ -36,14 +39,14 @@ const LessonManagement = () => {
                             <span className="text-primary font-medium">Lesson Management</span>
                         </nav>
                     </div>
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-3 md:gap-6 w-full md:w-auto flex-wrap justify-end md:justify-start pb-1 md:pb-0">
                         {/* Search Bar */}
                         {/* <div className="relative hidden xl:block">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                             <input className="w-80 pl-12 pr-4 py-2.5 bg-white dark:bg-zinc-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 transition-all shadow-sm outline-none" placeholder="Search students, teachers..." type="text" />
                         </div>*/}
                         {/* Date Navigation */}
-                        <div className="flex items-center bg-white dark:bg-zinc-800 rounded-xl px-4 py-2 shadow-sm gap-3 relative">
+                        <div className="flex items-center bg-white dark:bg-zinc-800 rounded-xl px-4 py-2 shadow-sm gap-3 relative flex-shrink-0">
                             <div
                                 className="relative cursor-pointer hover:opacity-80 transition-opacity"
                                 onClick={(e) => {
@@ -65,18 +68,21 @@ const LessonManagement = () => {
                                         setIsCalendarOpen(false);
                                     }}
                                     onClose={() => setIsCalendarOpen(false)}
+                                    className="right-0 origin-top-right"
                                 />
                             )}
                         </div>
-                        <button className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all shadow-lg shadow-primary/20">
+                        <button onClick={() => setIsAddLessonModalOpen(true)} className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all shadow-lg shadow-primary/20 flex-shrink-0">
                             <Plus size={18} />
-                            <span>New Lesson</span>
+                            <span className="hidden sm:inline">New Lesson</span>
+                            <span className="sm:hidden">New</span>
                         </button>
+
                     </div>
                 </header>
 
                 {/* Main Feed Scroll Area */}
-                <div className="flex-1 overflow-y-auto no-scrollbar p-8">
+                <div className="flex-1 overflow-y-auto no-scrollbar p-4 md:p-8">
                     <div className="max-w-7xl mx-auto space-y-8">
                         {/* Morning Session */}
                         <section>
@@ -260,7 +266,7 @@ const LessonManagement = () => {
                 </div>
 
                 {/* Float Info Panel (Summary) */}
-                <div className="absolute bottom-6 right-6 flex flex-col gap-2 pointer-events-none z-50">
+                <div className="hidden md:flex absolute bottom-6 right-6 flex-col gap-2 pointer-events-none z-50">
                     <div className="bg-slate-900 text-white p-3 rounded-xl shadow-2xl flex items-center gap-3 pointer-events-auto border border-white/10 max-w-xs">
                         <div className="flex -space-x-2">
                             <img className="w-6 h-6 rounded-full border-2 border-slate-900" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBzaiWDCPc7ssybvGxjlkymEZnzhs8YVSST0lWpx3vm0OiSAfXATD6Xl4yH0fWCRpFIKezZg8Fd5VxrbhzjXuDDfqgp4S2LGsJIbbfyVxegU0t2wsiDEFwElcrUIsN-6HaK6IhpBX3U4lE97M1RTANxM5VsZF0X3rxh1cAz3XtCUVLa2ooe-2joZ7J5LTewo_orBwX1iqdTVlyB3xz34A9_kCuS0gT8orlr0QA4a1ktljPESHdsYOJgnZCfE9s0pdloShgPyFciWJM" alt="Teacher" />
@@ -285,7 +291,7 @@ const LessonManagement = () => {
             </main>
 
             {/* Side Map/Location Panel (Quick View) */}
-
+            <AddLessonModal isOpen={isAddLessonModalOpen} onClose={() => setIsAddLessonModalOpen(false)} />
         </div>
     );
 };

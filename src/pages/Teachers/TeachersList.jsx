@@ -24,7 +24,11 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { link } from 'framer-motion/client';
 
+import AddTeacherModal from './AddTeacherModal';
+
 const TeachersList = () => {
+  const [isAddTeacherModalOpen, setIsAddTeacherModalOpen] = useState(false);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -47,6 +51,7 @@ const TeachersList = () => {
       }
     }
   };
+  // ... (keep existing teachers data) ...
 
   const teachers = [
     {
@@ -108,10 +113,11 @@ const TeachersList = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={20} />
             <input className="pl-10 pr-4 py-2.5 bg-white dark:bg-white/5 border-none rounded-xl shadow-sm focus:ring-2 focus:ring-primary/20 w-64 text-sm outline-none transition-all dark:text-white" placeholder="Search instrument or name..." type="text" />
           </div>
-          <button className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-medium shadow-lg shadow-primary/25 transition-all flex items-center gap-2">
+          <button onClick={() => setIsAddTeacherModalOpen(true)} className="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-medium shadow-lg shadow-primary/25 transition-all flex items-center gap-2">
             <UserPlus size={20} />
             Add Teacher
           </button>
+          <AddTeacherModal isOpen={isAddTeacherModalOpen} onClose={() => setIsAddTeacherModalOpen(false)} />
         </div>
       </header>
 

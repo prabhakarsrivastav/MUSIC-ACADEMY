@@ -26,9 +26,9 @@ const RefundsPage = () => {
                             { student: 'Jessica Lee', course: 'Vocal Training', amount: '$200.00', reason: 'Moving away', date: 'Applied 5 hours ago' }
                         ].map((req, i) => (
                             <div key={i} className="bg-white dark:bg-background-dark/50 border-l-4 border-amber-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-                                <div className="flex justify-between items-start mb-4">
+                                <div className="flex flex-col sm:flex-row justify-between items-start mb-4 gap-4 sm:gap-0">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center text-amber-600">
+                                        <div className="w-12 h-12 rounded-full bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center text-amber-600 flex-shrink-0">
                                             <RefreshCw size={24} />
                                         </div>
                                         <div>
@@ -36,7 +36,7 @@ const RefundsPage = () => {
                                             <p className="text-sm text-gray-500">{req.course} • {req.date}</p>
                                         </div>
                                     </div>
-                                    <div className="text-right">
+                                    <div className="text-left sm:text-right w-full sm:w-auto pl-16 sm:pl-0">
                                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wide">Refundable Amount</p>
                                         <p className="text-2xl font-black text-gray-900 dark:text-gray-100">{req.amount}</p>
                                     </div>
@@ -44,7 +44,7 @@ const RefundsPage = () => {
                                 <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl mb-6">
                                     <p className="text-sm text-gray-600 dark:text-gray-300 italic">"{req.reason}"</p>
                                 </div>
-                                <div className="flex gap-4">
+                                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                                     <button className="flex-1 bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
                                         <CheckCircle size={18} /> Approve Refund
                                     </button>

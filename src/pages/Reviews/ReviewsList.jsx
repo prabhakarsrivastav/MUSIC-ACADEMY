@@ -18,8 +18,11 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+import AddReviewModal from './AddReviewModal';
+
 const ReviewsList = () => {
   const [selectedRating, setSelectedRating] = useState('All Ratings');
+  const [isAddReviewModalOpen, setIsAddReviewModalOpen] = useState(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,6 +46,7 @@ const ReviewsList = () => {
       }
     }
   };
+  // ... (keep reviews data) ...
 
   const reviews = [
     {
@@ -137,10 +141,11 @@ const ReviewsList = () => {
             <Download size={18} />
             Export CSV
           </button>
-          <button className="px-5 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+          <button onClick={() => setIsAddReviewModalOpen(true)} className="px-5 py-2.5 rounded-lg bg-primary text-white font-semibold text-sm shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
             <MessageSquarePlus size={18} />
             Add Manual
           </button>
+          <AddReviewModal isOpen={isAddReviewModalOpen} onClose={() => setIsAddReviewModalOpen(false)} />
         </div>
       </header>
 

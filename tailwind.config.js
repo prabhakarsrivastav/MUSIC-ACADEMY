@@ -9,8 +9,11 @@ export default {
         extend: {
             colors: {
                 "primary": "#ff5724",
-                "background-light": "#FFF5EB", // Updated to match dashboard 2
-                "background-dark": "#0F172A", // Updated to match dashboard 2
+                "background-light": "#FFF5EB", // Reverted to original (cream)
+                "background-dark": "#0F172A", // Reverted to original (slate)
+                "auth-light": "#f8f6f5", // New: for Login page
+                "auth-dark": "#23140f", // New: for Login page
+                "cream-soft": "#FFF5EB",
                 "sidebar-dark": "#1E293B",
                 "sidebar-light-primary": "#FFF0E5",
                 "sidebar-light-secondary": "#FFFCF9",
@@ -21,7 +24,7 @@ export default {
                 "brand-peach": "#FFF5EB",
             },
             fontFamily: {
-                "display": ["Manrope", "sans-serif"],
+                "display": ["Inter", "Manrope", "sans-serif"],
                 "jakarta": ["Plus Jakarta Sans", "sans-serif"]
             },
             borderRadius: {

@@ -8,8 +8,8 @@ const ProfileModal = ({ contact, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
-                <div className="relative h-32 bg-gradient-to-r from-primary/20 to-primary/5">
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200 flex flex-col max-h-[85dvh]">
+                <div className="relative h-32 bg-gradient-to-r from-primary/20 to-primary/5 flex-shrink-0">
                     <button
                         onClick={onClose}
                         className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 hover:bg-white dark:hover:bg-black rounded-full transition-colors backdrop-blur-md"
@@ -17,8 +17,8 @@ const ProfileModal = ({ contact, onClose }) => {
                         <X size={20} className="text-slate-600 dark:text-slate-300" />
                     </button>
                 </div>
-                <div className="px-6 pb-6 -mt-16 flex flex-col items-center">
-                    <div className="relative mb-4">
+                <div className="px-6 pb-6 -mt-16 flex flex-col items-center overflow-y-auto custom-scrollbar">
+                    <div className="relative mb-4 flex-shrink-0">
                         <img
                             src={contact.avatar}
                             alt={contact.name}
@@ -29,10 +29,10 @@ const ProfileModal = ({ contact, onClose }) => {
                         )}
                     </div>
 
-                    <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-1">{contact.name}</h2>
-                    <p className="text-primary font-medium mb-6">{contact.role}</p>
+                    <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-1 text-center">{contact.name}</h2>
+                    <p className="text-primary font-medium mb-6 text-center">{contact.role}</p>
 
-                    <div className="grid grid-cols-3 gap-4 w-full mb-8">
+                    <div className="grid grid-cols-3 gap-4 w-full mb-8 flex-shrink-0">
                         <div className="text-center p-3 bg-slate-50 dark:bg-zinc-800/50 rounded-2xl">
                             <span className="block text-xl font-bold text-slate-700 dark:text-slate-200">98%</span>
                             <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Attendance</span>
@@ -47,14 +47,14 @@ const ProfileModal = ({ contact, onClose }) => {
                         </div>
                     </div>
 
-                    <div className="w-full space-y-4">
+                    <div className="w-full space-y-4 flex-shrink-0">
                         <div className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-zinc-800/30 rounded-2xl">
                             <div className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 flex items-center justify-center text-primary shadow-sm">
                                 <Mail size={20} />
                             </div>
                             <div>
                                 <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Email</p>
-                                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">student@example.com</p>
+                                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 break-all">student@example.com</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-zinc-800/30 rounded-2xl">
@@ -77,7 +77,7 @@ const ProfileModal = ({ contact, onClose }) => {
                         </div>
                     </div>
 
-                    <button className="w-full mt-8 py-3.5 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                    <button className="w-full mt-8 py-3.5 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex-shrink-0 mb-2">
                         View Full Profile
                     </button>
                 </div>
@@ -192,18 +192,15 @@ const Chat = () => {
     };
 
     return (
-        <div className="flex flex-1 h-full overflow-hidden bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100">
+        <div className="flex flex-1 h-[calc(100dvh-2rem)] md:h-full overflow-hidden bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100">
             {/* Profile Modal */}
             {isProfileOpen && activeContact && (
                 <ProfileModal contact={activeContact} onClose={() => setIsProfileOpen(false)} />
             )}
 
-            <aside className={`w-full md:w-80 bg-white dark:bg-zinc-900 border-r border-primary/5 flex-col z-20 ${isMobileChatOpen ? 'hidden md:flex' : 'flex'}`}>
+            <aside className={`w-full md:w-80 bg-white dark:bg-zinc-900 border-r border-primary/5 flex flex-col z-20 ${isMobileChatOpen ? 'hidden md:flex' : 'flex'}`}>
                 <div className="p-6">
                     <div className="flex items-center gap-3 mb-6">
-                        {/*<div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/30">
-                            <Music size={20} />
-                        </div>*/}
                         <h1 className="text-2xl font-bold tracking-tight">Messages</h1>
                     </div>
                     <div className="relative">
@@ -277,10 +274,10 @@ const Chat = () => {
                 </div>
             </aside>
 
-            <main className={`flex-1 flex-col bg-chat-cream dark:bg-zinc-950/40 ${isMobileChatOpen ? 'flex' : 'hidden md:flex'}`}>
+            <main className={`flex-1 flex-col bg-chat-cream dark:bg-zinc-950/40 relative ${isMobileChatOpen ? 'flex' : 'hidden md:flex'}`}>
                 {activeContact ? (
                     <>
-                        <header className="h-16 md:h-20 glass-effect bg-white dark:bg-zinc-900/80 border-b border-primary/5 px-4 md:px-8 flex items-center justify-between z-10">
+                        <header className="h-16 md:h-20 glass-effect bg-white dark:bg-zinc-900/80 border-b border-primary/5 px-4 md:px-8 flex items-center justify-between z-10 shrink-0">
                             <div className="flex items-center gap-3 md:gap-4">
                                 <button
                                     onClick={() => setIsMobileChatOpen(false)}
@@ -311,10 +308,10 @@ const Chat = () => {
                                 </div>
                             </div>
                             <div className="flex items-center gap-3">
-                                <button className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-sm flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">
+                                <button className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-sm flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors hidden sm:flex">
                                     <Phone size={20} />
                                 </button>
-                                <button className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-sm flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">
+                                <button className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-sm flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors hidden sm:flex">
                                     <Folder size={20} />
                                 </button>
                                 <button className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 shadow-sm flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">
@@ -323,7 +320,7 @@ const Chat = () => {
                             </div>
                         </header>
 
-                        <section className="flex-1 overflow-y-auto p-8 flex flex-col gap-6 custom-scrollbar">
+                        <section className="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6 custom-scrollbar pb-24 md:pb-8">
                             <div className="flex justify-center">
                                 <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">Today</span>
                             </div>
@@ -331,12 +328,12 @@ const Chat = () => {
                             {activeMessages.map((msg) => (
                                 <div
                                     key={msg.id}
-                                    className={`flex items-end gap-3 max-w-[70%] ${msg.sender === 'me' ? 'flex-row-reverse ml-auto' : ''}`}
+                                    className={`flex items-end gap-3 max-w-[85%] md:max-w-[70%] ${msg.sender === 'me' ? 'flex-row-reverse ml-auto' : ''}`}
                                 >
                                     {msg.sender !== 'me' && (
                                         <img
                                             alt={activeContact.name}
-                                            className="w-8 h-8 rounded-full object-cover mb-1"
+                                            className="w-8 h-8 rounded-full object-cover mb-1 hidden sm:block"
                                             src={activeContact.avatar}
                                         />
                                     )}
@@ -371,26 +368,26 @@ const Chat = () => {
                             <div ref={messagesEndRef} />
                         </section>
 
-                        <footer className="p-4 md:p-6 bg-chat-cream dark:bg-zinc-950/20">
+                        <footer className="p-4 md:p-6 bg-chat-cream dark:bg-zinc-950/20 glass-effect border-t border-primary/5 absolute bottom-0 w-full md:relative shrink-0">
                             <div className="max-w-5xl mx-auto relative flex items-center gap-3">
                                 <div className="flex-1 bg-white dark:bg-zinc-800 rounded-full shadow-xl shadow-primary/5 flex items-center px-4 border border-primary/5">
-                                    <button className="p-2 text-slate-400 hover:text-primary transition-colors">
+                                    <button className="p-2 text-slate-400 hover:text-primary transition-colors hidden sm:block">
                                         <PlusCircle size={24} />
                                     </button>
                                     <form onSubmit={handleSendMessage} className="flex-1">
                                         <input
                                             className="w-full bg-transparent border-none focus:ring-0 py-4 text-sm placeholder:text-slate-400 outline-none"
-                                            placeholder="Type your message here..."
+                                            placeholder="Type your message..."
                                             type="text"
                                             value={inputText}
                                             onChange={(e) => setInputText(e.target.value)}
                                         />
                                     </form>
                                     <div className="flex items-center gap-1">
-                                        <button className="p-2 text-slate-400 hover:text-primary transition-colors">
+                                        <button className="p-2 text-slate-400 hover:text-primary transition-colors hidden sm:block">
                                             <Smile size={24} />
                                         </button>
-                                        <button className="p-2 text-slate-400 hover:text-primary transition-colors">
+                                        <button className="p-2 text-slate-400 hover:text-primary transition-colors hidden sm:block">
                                             <Mic size={24} />
                                         </button>
                                     </div>
