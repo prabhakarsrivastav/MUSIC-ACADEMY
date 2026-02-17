@@ -123,6 +123,144 @@ const Dashboard = () => {
         animate="visible"
       >
         {/* ... (Welcome Section & KPI Grid omitted) ... */}
+        <motion.div variants={itemVariants} className="relative overflow-hidden bg-gradient-to-r from-primary via-[#ff7043] to-primary rounded-2xl p-8 flex items-center justify-between text-white shadow-xl shadow-primary/20 min-h-[220px]">
+          <div className="z-10 flex flex-col justify-center">
+            <h1 className="text-3xl font-extrabold mb-2">Welcome back, Admin!</h1>
+            <p className="text-white/80 font-medium mb-8">Here's what's happening with your academy today.</p>
+            <div className="inline-flex items-center bg-white/10 backdrop-blur-md rounded-full border border-white/20 p-1 px-2">
+              <div className="px-6 py-2 flex flex-col items-center">
+                <span className="text-xl font-bold">1,248</span>
+                <span className="text-[10px] uppercase tracking-wider text-white/70 font-bold">New Students</span>
+              </div>
+              <div className="w-px h-8 bg-white/20"></div>
+              <div className="px-6 py-2 flex flex-col items-center">
+                <span className="text-xl font-bold">92%</span>
+                <span className="text-[10px] uppercase tracking-wider text-white/70 font-bold">Attendance</span>
+              </div>
+            </div>
+          </div>
+          <div className="hidden md:block absolute right-12 top-1/2 -translate-y-1/2 transform">
+            <div className="relative w-48 h-48">
+              <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                <Megaphone size={180} />
+              </div>
+              <img alt="Welcome Illustration" className="w-full h-full object-contain relative z-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBCpEMbYNHskvls66qw70LvkT-vHRxMdJLsye9QlT611Y71RtfxUEt4wDI8RKk4wODPd4ir8m6FBz6rbwJSegUPCFoSbXDzu7CYJT7rcVXYqj7W5j3k1RM3fK6y_n2fEEv1BpXnndPHfsA-Odt-OagAJzTBA_HvPZfrO_JZPRyTqgiN_CJeCafrVPsXHyQcXLY4AWKpjxZu0qUdWZ1NCxHuHf5vRtR-CtnRogEe_ecNunnbez7LeMU7LLGFjsYDEWDAwNyeV1r4cXq" />
+            </div>
+          </div>
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute -left-20 -top-20 w-64 h-64 bg-black/5 rounded-full blur-3xl"></div>
+        </motion.div>
+
+        {/* KPI Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Total Students */}
+          <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between group hover:shadow-lg transition-all card-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <Users size={24} />
+              </div>
+              <span className="text-[11px] font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded-full">+12%</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-400">Total Students</p>
+              <h3 className="text-2xl font-extrabold text-charcoal dark:text-white">1,284</h3>
+            </div>
+          </motion.div>
+          {/* Total Teachers */}
+          <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between hover:shadow-lg transition-all card-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+                <FileCheck size={24} />
+              </div>
+              <span className="text-[11px] font-bold text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">Stable</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-400">Total Teachers</p>
+              <h3 className="text-2xl font-extrabold text-charcoal dark:text-white">48</h3>
+            </div>
+          </motion.div>
+          {/* Bookings Today */}
+          <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between hover:shadow-lg transition-all card-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+                <Calendar size={24} />
+              </div>
+              <span className="text-[11px] font-bold text-orange-500 bg-orange-500/10 px-2 py-1 rounded-full">Active</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-400">Bookings (Today)</p>
+              <h3 className="text-2xl font-extrabold text-charcoal dark:text-white">142</h3>
+            </div>
+          </motion.div>
+          {/* Revenue This Month */}
+          <motion.div variants={itemVariants} className="bg-primary p-6 rounded-2xl shadow-xl shadow-primary/20 flex flex-col justify-between text-white hover:scale-[1.02] transition-all">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white">
+                <DollarSign size={24} />
+              </div>
+              <span className="text-[11px] font-bold bg-white/20 px-2 py-1 rounded-full">+8.4%</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-white/70">Revenue (Dec)</p>
+              <h3 className="text-2xl font-extrabold">$42,850.00</h3>
+            </div>
+          </motion.div>
+          {/* Pending Approvals */}
+          <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between hover:shadow-lg transition-all card-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                <Clock size={24} />
+              </div>
+              <span className="text-[11px] font-bold text-amber-500 bg-amber-500/10 px-2 py-1 rounded-full">Priority</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-400">Pending Approvals</p>
+              <h3 className="text-2xl font-extrabold text-charcoal dark:text-white">12</h3>
+            </div>
+          </motion.div>
+          {/* Live Classes */}
+          <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between hover:shadow-lg transition-all card-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">
+                <Radio size={24} />
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                <span className="text-[11px] font-bold text-red-500">Live</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-400">Live Classes</p>
+              <h3 className="text-2xl font-extrabold text-charcoal dark:text-white">8</h3>
+            </div>
+          </motion.div>
+          {/* Upcoming Lessons */}
+          <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between hover:shadow-lg transition-all card-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                <Clock size={24} />
+              </div>
+              <span className="text-[11px] font-bold text-gray-400">Next 24h</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-400">Upcoming Lessons</p>
+              <h3 className="text-2xl font-extrabold text-charcoal dark:text-white">312</h3>
+            </div>
+          </motion.div>
+          {/* New Messages */}
+          <motion.div variants={itemVariants} className="bg-white dark:bg-background-dark p-6 rounded-2xl shadow-sm border border-primary/5 flex flex-col justify-between hover:shadow-lg transition-all card-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500">
+                <Mail size={24} />
+              </div>
+              <span className="text-[11px] font-bold text-cyan-500 bg-cyan-500/10 px-2 py-1 rounded-full">New</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-400">New Messages</p>
+              <h3 className="text-2xl font-extrabold text-charcoal dark:text-white">24</h3>
+            </div>
+          </motion.div>
+        </div>
 
         {/* Main Visualization Area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
@@ -139,8 +277,8 @@ const Dashboard = () => {
                     key={range}
                     onClick={() => setChartRange(range)}
                     className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${chartRange === range
-                        ? 'bg-white dark:bg-background-dark shadow-sm text-primary'
-                        : 'text-gray-500 hover:text-charcoal dark:hover:text-gray-300'
+                      ? 'bg-white dark:bg-background-dark shadow-sm text-primary'
+                      : 'text-gray-500 hover:text-charcoal dark:hover:text-gray-300'
                       }`}
                   >
                     {range}

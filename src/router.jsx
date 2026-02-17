@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import AdminLayout from './layouts/AdminLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Dashboard2 from './pages/Dashboard/Dashboard2';
@@ -20,11 +21,8 @@ import Chat from './pages/Chat/Chat';
 import BookingAnalytics from './pages/Bookings/BookingAnalytics';
 import BookingList from './pages/Bookings/BookingList';
 import SettingsPage from './pages/Settings/Settings';
-<<<<<<< HEAD
 import Profile from './pages/profile/Profile';
-=======
-import SupportPage from './pages/Chat/SupportPage';
->>>>>>> 40f92fd3b6db53e9e53adfa1ce562c33fd3e0d12
+
 
 import StudentProfile from './pages/Users/StudentProfile';
 import Login from './pages/Auth/Login';
@@ -38,7 +36,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: <AdminLayout />,
+        element: (
+            <ProtectedRoute>
+                <AdminLayout />
+            </ProtectedRoute>
+        ),
         children: [
             {
                 index: true,

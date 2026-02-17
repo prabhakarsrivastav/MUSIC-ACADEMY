@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import logoImage from '../../assets/images/Gemini_Generated_Image_wvzf8bwvzf8bwvzf-removebg-preview.png';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login, user: currentUser } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
+
+  if (currentUser) {
+    return <Navigate to="/" replace />;
+  }
 
   // Feedback State
   const [error, setError] = useState('');
@@ -38,8 +44,8 @@ const Login = () => {
       const user = users.find(u => u.email === email && u.password === password);
 
       if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        navigate('/');
+        login(user);
+        navigate('/', { replace: true });
       } else {
         setError('Invalid email or password.');
       }
